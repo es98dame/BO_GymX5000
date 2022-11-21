@@ -118,20 +118,20 @@ group by A.id, exercise.id, f.activitytype_id
 	{
 		id: 1,
 		type: "recipes",
-      activity_id: 3,
-      activity: "Fruit Smoothie",
+	        activity_id: 3,
+	        activity: "Fruit Smoothie",
 		thumbnail_url: "www.url.com",
 		tags: ["tag", "another tag", "third tag"],
-      favorited : 25
+      		favorited : 25
 	},
 	{
 		id: 2,
 		type: "workouts",
 		activity_id: 4,
-      activity: "Bench Press",
+      		activity: "Bench Press",
 		thumbnail_url: "www.url.com",
 		tags: ["tag", "another tag", "third tag"],
-      favorited : 36
+      		favorited : 36
 	},
 	...
 ]
