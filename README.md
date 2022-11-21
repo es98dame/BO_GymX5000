@@ -77,9 +77,65 @@ The profile page consists of a users information, badges earned and favorited ac
 ## Back-End Structure
 This is a database structure in which all classes, recipes, and workouts data are linked and managed through an activity table that serves as a great hub. The database is built in such a way that future implementations can be easily added by adding a relationship between the new table and activities table. Thanks to this structure, we are able to consolidate all of the different features (i.e. recipes, workouts, classes) into a single GET request, thus allowing the front end team to create many different activities through a single card component.
 >>
-![gymx5000-2(reduced)](https://user-images.githubusercontent.com/25275753/169428763-736928fa-e56f-4d35-b7e1-541f54c950c6.png)
+![gymx5000-2](https://user-images.githubusercontent.com/25275753/203009834-56622dea-936d-4859-8847-72abd1c0c08e.png)
 
-<br/>
+
+### Query
+```sql
+   (
+    SELECT A.id, A.name As type, exercise.id AS activity_id, exercise.exercise_name AS activity,
+exercise.gif_url AS thumbnail_url, ARRAY[exercise.body_category, exercise.equipment, exercise.target_muscle] as tags,
+	f.activitytype_id as favorited
+FROM exercise
+    INNER JOIN activitytype as A ON A.id = exercise.activitytype_id
+    INNER JOIN favorites AS f ON exercise.activitytype_id = f.activitytype_id WHERE f.user_id= ${userid}
+group by A.id, exercise.id, f.activitytype_id
+    )
+    UNION
+    (
+      SELECT C.id, C.name As type, A.id As activity_id, A.name AS activity, A.image AS thumbnail_url,
+      ARRAY[A.dietlabel, A.healthlabel] as tags,
+		f.activitytype_id as favorited
+      FROM food as A
+      INNER JOIN activitytype as C ON C.id = A.activitytype_id
+      INNER JOIN favorites AS f ON A.activitytype_id = f.activitytype_id WHERE f.user_id=${userid}
+      group by C.id, A.id, f.activitytype_id
+    )
+    UNION
+  (
+      SELECT C.id, C.name As type, S.id As activity_id, S.name AS activity, S.image AS thumbnail_url,
+      ARRAY[S.category] as tags,
+	 f.activitytype_id as favorited
+      FROM classes as S
+      INNER JOIN activitytype as C ON C.id = S.activitytype_id
+    INNER JOIN favorites AS f ON S.activitytype_id = f.activitytype_id WHERE f.user_id= ${userid}
+      group by C.id, S.id, f.activitytype_id
+    )
+```
+### Result
+```json
+[
+	{
+		id: 1,
+		type: "recipes",
+      activity_id: 3,
+      activity: "Fruit Smoothie",
+		thumbnail_url: "www.url.com",
+		tags: ["tag", "another tag", "third tag"],
+      favorited : 25
+	},
+	{
+		id: 2,
+		type: "workouts",
+		activity_id: 4,
+      activity: "Bench Press",
+		thumbnail_url: "www.url.com",
+		tags: ["tag", "another tag", "third tag"],
+      favorited : 36
+	},
+	...
+]
+```
 
 ## API Endpoints
 
