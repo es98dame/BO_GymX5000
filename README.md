@@ -140,10 +140,16 @@ group by A.id, exercise.id, f.activitytype_id
 
 ## API Endpoints
 
-### `GET /api/v1/activities`
+### `POST /signup` `POST /signin`
+Increase security by granting authorization using bcrypt, jsonwebtoken, authRouter when a user signin.
+
+### `GET /api/user`
+Return user infomation.
+
+### `GET /api/activities`
 Retrieve a list of all activities.
 
-### `GET /api/v1/recipes`
+### `GET /api/recipes`
 Retrieve a list of all recipes or specific recipe information.
 
 #### Parameters
@@ -151,7 +157,7 @@ Retrieve a list of all recipes or specific recipe information.
 |------------|---------|-------------------------------------------------------------------|
 | recipeid   | Integer | Required ID of the recipe for which data should be returned.      |
 
-### `GET /api/v1/workout`
+### `GET /api/workout`
 Retrieve a list of all exercise or specific exericise information.
 
 #### Parameters
@@ -159,7 +165,7 @@ Retrieve a list of all exercise or specific exericise information.
 |------------|---------|---------------------------------------------------------------------|
 | workoutid  | Integer | Required ID of the workout for which data should be returned.       |
 
-### `GET /api/v1/classes`
+### `GET /api/classes`
 Retrieve a list of all classes or specific class information.
 
 #### Parameters
@@ -167,8 +173,47 @@ Retrieve a list of all classes or specific class information.
 |------------|---------|-------------------------------------------------------------|
 | classid    | Integer | Required ID of the class for which data should be returned. |
 
-### `GET /api/v1/favorites`
+### `POST /api/bookclass`
+To add a selected class to a single user's class list.
+
+#### Parameters
+| Parameter  | Type    | Description                                                 |
+|------------|---------|-------------------------------------------------------------|
+| classid    | Integer | Required ID of the class for which data should be inserted. |
+
+### `DELETE /api/cancelclass`
+Removed a selected class from a single user's class list.
+#### Parameters
+| Parameter  | Type    | Description                                                 |
+|------------|---------|-------------------------------------------------------------|
+| classid    | Integer | Required ID of the class for which data should be removed. |
+
+
+### `GET /api/favorites`
 Retrieve a list of favorites for a single user.
+
+### `POST /api/favorites`
+Add a selected activity to a list of favorites for a single user.
+#### Parameters
+| Parameter  | Type    | Description                                                 |
+|------------|---------|-------------------------------------------------------------|
+| activityid    | Integer | Required ID of the activity for which data should be inserted. |
+
+### `DELETE /api/favorites`
+Remove a selected activity from a list of favorites for a single user.
+#### Parameters
+| Parameter  | Type    | Description                                                 |
+|------------|---------|-------------------------------------------------------------|
+| activityid    | Integer | Required ID of the activity for which data should be removed. |
+
+### `GET /api/classhistory`
+Retrieve a single user's class history
+
+### `GET /api/favoriteclass`
+Retrieve a list of favorite classes for a single user.
+
+### `GET /api/quotes`
+Retrieve random workout motivation quotes.
 
 ## Testing
 Testing has been done using cypress.
