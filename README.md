@@ -82,6 +82,7 @@ This is a database structure in which all classes, recipes, and workouts data ar
 
 ### Query
 ```sql
+## To get user's favorite
    (
     SELECT A.id, A.name As type, exercise.id AS activity_id, exercise.exercise_name AS activity,
 exercise.gif_url AS thumbnail_url, ARRAY[exercise.body_category, exercise.equipment, exercise.target_muscle] as tags,
