@@ -4,7 +4,7 @@
   "description": "Fitness Tracker to keep track of fitness activities, goals, classes, and more.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode=production --watch",
+    "build": "webpack --mode=production",
     "start": "webpack --mode=development --watch",
     "client-dev": "webpack --config ./webpack.config.js --mode development -w",
     "server-start": "nodemon server/index.js",

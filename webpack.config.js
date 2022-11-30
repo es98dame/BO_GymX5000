@@ -1,6 +1,7 @@
 const path = require('path');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -42,4 +43,9 @@ module.exports = {
     port: 3000,
     historyApiFallback: true,
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve('./client/public/index.html'),
+    }),
+  ]
 };
